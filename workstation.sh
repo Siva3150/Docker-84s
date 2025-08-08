@@ -88,11 +88,11 @@ VALIDATE $? "kubens installation"
 # chmod 700 get_helm.sh
 # ./get_helm.sh VALIDATE $? "helm installation"
 
-# Helm
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-VALIDATE $? "helm installation"
+# # Helm
+# curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+# chmod 700 get_helm.sh
+# ./get_helm.sh
+# VALIDATE $? "helm installation"
 
 # # Helm
 # curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -121,3 +121,24 @@ VALIDATE $? "helm installation"
 # else
 #   VALIDATE 1 "helm installation"
 # fi
+
+# Helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+VALIDATE $? "helm installation"
+
+# Ensure /usr/local/bin is in PATH (fix for 'helm not found' issue)
+if [[ ":$PATH:" != *":/usr/local/bin:"* ]]; then
+    echo "Adding /usr/local/bin to PATH..."
+    export PATH=$PATH:/usr/local/bin
+    if ! grep -q "/usr/local/bin" ~/.bashrc; then
+        echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
+    fi
+fi
+
+# Double-check Helm is accessible
+if ! command -v helm >/dev/null 2>&1; then
+    echo "Helm still not found after installation. Please re-login or source your bashrc."
+    exit 1
+fi
