@@ -88,11 +88,11 @@ VALIDATE $? "kubens installation"
 # chmod 700 get_helm.sh
 # ./get_helm.sh VALIDATE $? "helm installation"
 
-# # Helm
-# curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-# chmod 700 get_helm.sh
-# ./get_helm.sh
-# VALIDATE $? "helm installation"
+# Helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+VALIDATE $? "helm installation"
 
 # # Helm
 # curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -111,13 +111,13 @@ VALIDATE $? "kubens installation"
 #   VALIDATE 1 "helm installation"
 # fi
 
-# Ensure /usr/local/bin is in PATH
-export PATH=$PATH:/usr/local/bin
-hash -r
+# # Ensure /usr/local/bin is in PATH
+# export PATH=$PATH:/usr/local/bin
+# hash -r
 
-# Check if helm is really installed
-if command -v helm &>/dev/null; then
-  VALIDATE 0 "helm installation"
-else
-  VALIDATE 1 "helm installation"
-fi
+# # Check if helm is really installed
+# if command -v helm &>/dev/null; then
+#   VALIDATE 0 "helm installation"
+# else
+#   VALIDATE 1 "helm installation"
+# fi
